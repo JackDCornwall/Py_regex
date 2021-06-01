@@ -31,6 +31,9 @@ http://cheeseontoastlive.co.uk
 https://www.theinternet.com/bazooka-joe
 https://the-internet.gov.uk/bazooka-david/test-124
 ww2.testnet.gov.uk
+http://gmail.com
+https://www.hotmail.com
+www.aol.com/the-news-from-1999/
 
 This should be a good chunk of text for searching through
 '''
@@ -62,6 +65,9 @@ if len(match_list) == 0:
 #if at least one match was found
 else:
 
+    # initiating list to store domains
+    domains = []
+
     #running through all found matches
     for match in match_list:
 
@@ -70,7 +76,27 @@ else:
         #print(match.span()) #prints spans
 
         #printing found match (this makes more sense for a regex match)
-        print(txt[match.span()[0]:match.span()[1]])
+        #print(txt[match.span()[0]:match.span()[1]])
+
+        #gather url
+        url = txt[match.span()[0]:match.span()[1]]
+
+        #removing http:// & https://
+        url = re.sub(r"^(http(s)?:\/\/)","",url)
+
+        #removing www & ww2
+        url = re.sub(r"^(ww(w|2)\.)","",url)
+
+        #removing subfolders
+        url = re.sub(r"/.*$","",url)
+
+        #storing domains
+        domains.append(url)
+
+#de duping list
+domains = list(dict.fromkeys(domains))
+
+print(domains)
 
 #stop point for debug
-#print("The code has run")
+print("The code has run")
