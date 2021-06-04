@@ -98,5 +98,24 @@ domains = list(dict.fromkeys(domains))
 
 print(domains)
 
+#generating second set of text
+txt_2 = '''
+\\x0c test test test \\x1c \\n \\n \\n \\n 
+123 4445 8123\\n
+test 7 123
+\\x0c \\x9c \\n
+'''
+
+#printing without replacement
+print(txt_2)
+
+#directly removing special characters
+reg_1 = re.compile("\\\\x[0-9]c") #compiling to remove anything like \x0c backslashes have to be tripple escaped eg \\\\=\
+reg_2 = re.compile("[^0-9]")  #compiling to remove anything other than a number
+
+txt_2 = reg_1.sub("", txt_2) #performing first replacement
+
+print(reg_2.sub("",txt_2)) #performing second replacement and printing.
+
 #stop point for debug
 print("The code has run")
